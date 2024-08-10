@@ -1,0 +1,9 @@
+.topPart::before {
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 4px;
+    background: red;
+
+    bottom: -20px;
+}
