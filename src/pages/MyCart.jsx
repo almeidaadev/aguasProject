@@ -1,5 +1,24 @@
-import Card from "./Card";
+import { useState } from "react";
+import Card from "../components/Card";
+
 const MyCart = () => {
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+    const handleRemoveClick = () => {
+        setIsConfirmModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsConfirmModalOpen(false);
+    };
+
+    const handleConfirmRemove = () => {
+        // Lógica para remover o item do carrinho
+        console.log("Item removido do carrinho");
+
+        setIsConfirmModalOpen(false);
+    };
+
     return (
         <div className="max-w-[1440px] mx-auto p-6 bg-gray-100">
             <h2 className="text-2xl font-semibold text-center text-blue-600 mb-6">
@@ -14,12 +33,11 @@ const MyCart = () => {
                 <div className="flex bg-white shadow-lg rounded-lg p-4 mb-4 relative">
                     <div className="flex items-center">
                         <img
-                            className="w-[150px]  rounded-lg object-cover"
+                            className="w-[150px] rounded-lg object-cover"
                             src="/public/m-Z8gvOCnQO4.webp"
                             alt="Ingresso Adulto"
                         />
-
-                        <div className=" ml-4 flex-1">
+                        <div className="ml-4 flex-1">
                             <div className="flex gap-[3rem]">
                                 <div className="flex items-center justify-between">
                                     <div>
@@ -30,7 +48,10 @@ const MyCart = () => {
                                             R$ 49,00
                                         </p>
                                     </div>
-                                    <button className="text-red-600 hover:text-red-800 absolute right-14 bottom-5">
+                                    <button
+                                        className="text-red-600 hover:text-red-800 absolute right-14 bottom-5"
+                                        onClick={handleRemoveClick}
+                                    >
                                         Remover
                                     </button>
                                 </div>
@@ -83,8 +104,38 @@ const MyCart = () => {
                     </div>
                 </div>
             </Card>
+
+            {/* Modal de Confirmação */}
+            {isConfirmModalOpen && (
+                <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-20">
+                    <div className="bg-white w-[400px] p-6 rounded-lg shadow-lg text-center relative z-30">
+                        <h2 className="text-xl font-bold mb-4 text-[#0078b8]">
+                            Confirmação
+                        </h2>
+                        <p className="mb-6">
+                            Deseja remover o passeio de seu carrinho?
+                        </p>
+                        <div className="flex justify-between">
+                            <button
+                                className="bg-white border border-blue-600 text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-100 w-1/2 mr-2"
+                                onClick={handleCloseModal}
+                            >
+                                Não
+                            </button>
+                            <button
+                                className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 w-1/2 ml-2"
+                                onClick={handleConfirmRemove}
+                            >
+                                Sim
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
 
 export default MyCart;
+
+

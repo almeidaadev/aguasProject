@@ -5,12 +5,12 @@ import App from "./App.jsx";
 import "./index.css";
 
 // import Components
-import Login from "./components/Login";
-import Register from "./components/Register";
-import MainLayout from "./components/MainLayout";
-import CookiePolicy from "./components/CookiePolicy.jsx";
-import TermoConsentimento from "./components/TermoConsentimento.jsx";
-import MyCart from "./components/MyCart.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import MainLayout from "./pages/MainLayout.jsx";
+import CookiePolicy from "./pages/CookiePolicy.jsx";
+import TermoConsentimento from "./pages/TermoConsentimento.jsx";
+import MyCart from "./pages/MyCart.jsx";
 
 createRoot(document.getElementById("root")).render(
     <BrowserRouter>

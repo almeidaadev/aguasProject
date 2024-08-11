@@ -2,77 +2,81 @@ import { useState, useEffect } from "react";
 
 const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
+
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
     };
 
-    const handleLoginClick = () => {
-        setIsModalOpen(true);
+    const handleCloseModal = (event) => {
+        // Fechar modal se o clique for no fundo opaco
+        if (event.target.id === "modal-background") {
+            setIsModalOpen(false);
+        }
     };
 
     useEffect(() => {
-        document.body.style.overflow = isModalOpen ? 'hidden' : 'auto';
-
-        return () => {
-            document.body.style.overflow = 'auto';
-        }
+        document.body.style.overflow = isModalOpen ? "hidden" : "auto";
     }, [isModalOpen]);
-    
+
     return (
-        <header className="bg-blue-500 text-white">
-            <div className="container max-w-[1300px] mx-auto p-4 flex flex-wrap justify-between items-center">
-                <div className="logo">
-                    <a href="/">
-                        <img
-                            src="/logo.png"
-                            alt="Logo Águas Correntes"
-                            className="max-h-12"
-                        />
-                    </a>
-                </div>
-                <div className="header-actions flex items-center space-x-4">
-                    <i className="fas fa-cart-shopping text-2xl"></i>
-                    <div className="login-section">
-                        <a
-                            href="#"
-                            className="flex items-center space-x-2 ml-6"
-                        >
-                            <i className="fas fa-user text-xl mr-2"></i>
-
-                            {/* Botão de login */}
-                            <button
-                                className="text-white font-bold "
-                                onClick={handleLoginClick}
-                            >
-                                Olá, faça seu login
-                            </button>
-
-                            {/* Modal de login */}
-                            {isModalOpen && (
-                                <div className=" flex-col inset-0 bg-black bg-opacity-50 flex justify-end items-center z-999 fixed top-[5rem]">
-                                    <div className="flex flex-col items-center bg-white w-[350px] h-[100%] p-6 rounded-lg absolute right-0 top-0 z-999">
-                                        <h2 className="text-xl font-bold mb-4 text-white bg-blue-600 text-center absolute top-0 left-0 w-full p-[1rem]">
-                                            Login
-                                        </h2>
-
-                                        <a
-                                            href="/login"
-                                            className="mt-[5rem] bg-blue-600 w-[80%] text-center rounded-[6px] text-white py-[.5rem] "
-                                        >
-                                            Entrar
-                                        </a>
-
-                                        <span className="mt-[1rem] w-[100%] text-black border-red-800 border-t-2">
-                                            Codigo promocional
-                                        </span>
-                                    </div>
-                                </div>
-                            )}
+        <>
+            <header className="bg-blue-500 text-white relative z-10">
+                <div className="container max-w-[1300px] mx-auto p-4 flex flex-wrap justify-between items-center">
+                    <div className="logo">
+                        <a href="/">
+                            <img
+                                src="/logo.png"
+                                alt="Logo Águas Correntes"
+                                className="max-h-12"
+                            />
                         </a>
                     </div>
+                    <div className="header-actions flex items-center space-x-4">
+                        <a href="/meu-carrinho">
+                            <i className="fas fa-cart-shopping text-2xl"></i>
+                        </a>
+                        <button
+                            className="flex items-center space-x-2 ml-6 text-white font-bold"
+                            onClick={toggleModal}
+                        >
+                            <i className="fas fa-user text-xl mr-2"></i>
+                            Olá, faça seu login
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
+
+            {/* Modal de login */}
+            {isModalOpen && (
+                <div
+                    id="modal-background"
+                    className="fixed inset-0 bg-black bg-opacity-50 flex justify-end items-start z-50"
+                    onClick={handleCloseModal}
+                >
+                    <div
+                        className="flex flex-col bg-white w-[400px] h-full rounded-l-lg absolute right-0 top-[5rem] z-50"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <h2 className="text-xl font-bold text-white bg-blue-600 w-full p-4 text-center">
+                            Faça seu login
+                        </h2>
+                        <div className="flex flex-col items-center p-6">
+                            <a
+                                href="/login"
+                                className="bg-blue-600 text-white py-2 px-4 rounded-md w-full text-center my-4"
+                            >
+                                Entrar
+                            </a>
+                            <input
+                                type="text"
+                                placeholder="Código promocional"
+                                className="p-2 w-full border-2 border-blue-200 rounded-md"
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 
