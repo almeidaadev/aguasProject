@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Header = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -9,6 +9,15 @@ const Header = () => {
     const handleLoginClick = () => {
         setIsModalOpen(true);
     };
+
+    useEffect(() => {
+        document.body.style.overflow = isModalOpen ? 'hidden' : 'auto';
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        }
+    }, [isModalOpen]);
+    
     return (
         <header className="bg-blue-500 text-white">
             <div className="container max-w-[1300px] mx-auto p-4 flex flex-wrap justify-between items-center">
