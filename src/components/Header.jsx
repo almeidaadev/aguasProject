@@ -40,7 +40,9 @@ const Header = () => {
                             onClick={toggleModal}
                         >
                             <i className="fas fa-user text-xl mr-2"></i>
-                            Olá, faça seu login
+                            <span className="hidden md:block">
+                                Olá, faça seu login
+                            </span>
                         </button>
                     </div>
                 </div>

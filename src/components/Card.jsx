@@ -4,7 +4,9 @@ const Card = ({ children, borderBottomColor }) => {
     return (
         <div
             className={`bg-white shadow-md border border-gray-300 rounded-lg p-5 mb-5 ${
-                borderBottomColor ? `border-b-4 ${borderBottomColor}` : "border-b-4 border-primary"
+                borderBottomColor
+                    ? `border-b-4 ${borderBottomColor}`
+                    : "border-b-4 border-primary"
             }`}
         >
             {children}
